@@ -208,6 +208,7 @@ ul {
 .employees {
   display: grid;
   grid-template-columns: 2fr 1fr;
+  gap: 0.5rem;
 }
 
 .emp-data {
@@ -226,4 +227,11 @@ ul {
   border: 1px solid dotted;
   background: var(--primary-color);
   padding: 0.7rem;
+}
+.birthday-block {
+  text-align: left;
+}
+.emp-birthday-item {
+  border: 1px solid #333;
+  margin-bottom: 0.5rem;
 }

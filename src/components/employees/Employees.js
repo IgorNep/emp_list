@@ -17,7 +17,7 @@ const Employees = ({ getEmployees, list: { employees, loading } }) => {
       ) : (
         <div className="employees">
           <EmpData employees={employees} />
-          <EmpBirthday />
+          <EmpBirthday employees={employees} />
         </div>
       )}
     </Fragment>
