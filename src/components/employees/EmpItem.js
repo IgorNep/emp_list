@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 const EmpItem = ({ user, changeUsersShowBirthday }) => {
   const [showBirthday, setShowBirthday] = useState(user.showBirthday);
-  console.log(user.showBirthday);
+
   return (
     <Fragment>
       <p key={user.id}>

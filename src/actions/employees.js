@@ -14,18 +14,20 @@ export const getEmployees = () => async (dispatch) => {
       'https://yalantis-react-school-api.yalantis.com/api/task0/users'
     );
 
-    let employees;
-    if (localStorage.getItem('employees') === null) {
-      employees = [];
-    } else {
-      employees = JSON.parse(localStorage.getItem('employees'));
-    }
+    let employees = [];
+
     res.data.forEach((employer) => {
-      employer.showBirthday = false;
+      if (isShowBirthdayChecked(employer)) {
+        employer.showBirthday = true;
+      } else {
+        employer.showBirthday = false;
+      }
       employees.push(employer);
     });
+
     localStorage.setItem('employees', JSON.stringify(employees));
-    dispatch({ type: GET_EMPLOYEES, payload: res.data });
+
+    dispatch({ type: GET_EMPLOYEES, payload: employees });
   } catch (error) {
     dispatch({
       type: EMPLOYEES_ERROR,
@@ -116,23 +118,30 @@ export const changeUsersShowBirthday = (user) => (dispatch) => {
 };
 
 const updateLocalStorage = (user, index) => {
-  // let employees;
-  // if (localStorage.getItem('employees') === 'null') {
-  //   employees = [];
-  //   for (let i = 0; i < 12; i++) {
-  //     const users = [];
-  //     usersSortedByMonth[i].push(users);
-  //   }
-  // } else {
-  //   usersSortedByMonth = JSON.parse(localStorage.getItem('usersSortedByMonth'));
-  // }
-  // user.showBirthday
-  //   ? usersSortedByMonth[index].users.push(user)
-  //   : (usersSortedByMonth[index].users = usersSortedByMonth[index].users.filter(
-  //       (userItem) => userItem.id !== user.id
-  //     ));
-  // localStorage.setItem(
-  //   'usersSortedByMonth',
-  //   JSON.stringify(usersSortedByMonth)
-  // );
+  let employees = JSON.parse(localStorage.getItem('employees'));
+  let showBirthdayInfo;
+  if (localStorage.getItem('showBirthdayInfo') === null) {
+    showBirthdayInfo = [];
+  } else {
+    showBirthdayInfo = JSON.parse(localStorage.getItem('showBirthdayInfo'));
+  }
+
+  const show = employees.find((employer) => employer.id === user.id);
+  show.showBirthday = user.showBirthday;
+
+  if (showBirthdayInfo.find((item) => item.id === show.id)) {
+    showBirthdayInfo = showBirthdayInfo.filter((item) => item.id !== show.id);
+  } else {
+    showBirthdayInfo.push(show);
+  }
+  localStorage.setItem('showBirthdayInfo', JSON.stringify(showBirthdayInfo));
+};
+
+const isShowBirthdayChecked = (employer) => {
+  const showArr = JSON.parse(localStorage.getItem('showBirthdayInfo'));
+  let checkedUser;
+  if (showArr !== null && showArr.length > 0) {
+    checkedUser = showArr.find((item) => item.id === employer.id);
+  }
+  if (checkedUser) return true;
 };
