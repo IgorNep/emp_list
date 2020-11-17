@@ -1,38 +1,33 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { createUsersSortedByMonth } from '../../actions/employees';
-import Spinner from '../layout/Spinner';
-import EmpBirthdayItem from './EmpBirthdayItem';
+import MonthItem from './MonthItem';
+import {
+  sortEmployeesByMonth,
+  getShowBirthdayInfo,
+} from '../../actions/employees';
 
 const EmpBirthday = ({
+  lists: { monthSortedList, showBirthdayList },
   employees,
-  usersSortedByMonth,
-  createUsersSortedByMonth,
+  sortEmployeesByMonth,
+  getShowBirthdayInfo,
 }) => {
   useEffect(() => {
-    createUsersSortedByMonth(employees);
-  }, [createUsersSortedByMonth, employees]);
+    sortEmployeesByMonth(employees);
+    getShowBirthdayInfo();
+  }, [sortEmployeesByMonth, employees, getShowBirthdayInfo]);
   return (
     <div className="emp-birthday">
       <h2>Employees birthday</h2>
       <div className="line"></div>
       <div className="birthday-block">
-        {usersSortedByMonth ? (
-          usersSortedByMonth.map((item) => (
-            <div key={item.id}>
-              {item.users && item.users.length > 0 && (
-                <div className="emp-birthday-item">
-                  <h4>{item.title} </h4>
-                  <div className="emp-birthday-list">
-                    <EmpBirthdayItem users={item.users} />
-                  </div>
-                </div>
-              )}
-            </div>
+        {monthSortedList && showBirthdayList.length > 0 ? (
+          monthSortedList.map((month) => (
+            <MonthItem key={month.id} month={month} />
           ))
         ) : (
-          <Spinner />
+          <h4>No selected employees</h4>
         )}
       </div>
     </div>
@@ -40,14 +35,16 @@ const EmpBirthday = ({
 };
 
 EmpBirthday.propTypes = {
+  lists: PropTypes.object.isRequired,
+  getShowBirthdayInfo: PropTypes.func.isRequired,
+  sortEmployeesByMonth: PropTypes.func.isRequired,
   employees: PropTypes.array.isRequired,
-  usersSortedByMonth: PropTypes.array.isRequired,
-  createUsersSortedByMonth: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  usersSortedByMonth: state.list.usersSortedByMonth,
+  lists: state.lists,
 });
-export default connect(mapStateToProps, { createUsersSortedByMonth })(
-  EmpBirthday
-);
+export default connect(mapStateToProps, {
+  sortEmployeesByMonth,
+  getShowBirthdayInfo,
+})(EmpBirthday);

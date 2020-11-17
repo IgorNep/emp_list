@@ -1,18 +1,20 @@
 import {
   GET_EMPLOYEES,
+  CREATE_ABC_SORTED_LIST,
+  CREATE_MONTH_SORTED_LIST,
   EMPLOYEES_ERROR,
   CLEAR_EMPLOYEES,
-  CREATE_SORTEDLIST,
-  CREATE_SORTED_BY_MONTH,
   SET_SHOWBIRTHDAY,
+  CREATE_SHOWBIRTHDAY_LIST,
 } from '../actions/types';
 
 const initialState = {
   employees: [],
   loading: true,
   error: null,
-  sortedLists: [],
-  usersSortedByMonth: [],
+  abcSortedList: [],
+  monthSortedList: [],
+  showBirthdayList: [],
 };
 
 //eslint-disable-next-line
@@ -25,32 +27,16 @@ export default function (state = initialState, action) {
         employees: payload,
         loading: false,
       };
-    case CREATE_SORTEDLIST:
+    case CREATE_ABC_SORTED_LIST:
       return {
         ...state,
-        sortedLists: payload,
+        abcSortedList: payload,
         loading: false,
       };
-    case SET_SHOWBIRTHDAY:
+    case CREATE_MONTH_SORTED_LIST:
       return {
         ...state,
-        usersSortedByMonth: [
-          ...state.usersSortedByMonth,
-          payload.user.showBirthday
-            ? state.usersSortedByMonth[payload.index].users.push(payload.user)
-            : (state.usersSortedByMonth[
-                payload.index
-              ].users = state.usersSortedByMonth[payload.index].users.filter(
-                (user) => user.id !== payload.user.id
-              )),
-        ],
-        loading: false,
-      };
-
-    case CREATE_SORTED_BY_MONTH:
-      return {
-        ...state,
-        usersSortedByMonth: payload,
+        monthSortedList: payload,
         loading: false,
       };
     case CLEAR_EMPLOYEES:
@@ -59,13 +45,34 @@ export default function (state = initialState, action) {
         loading: false,
         error: null,
       };
-    case EMPLOYEES_ERROR: {
+    case EMPLOYEES_ERROR:
       return {
         ...state,
         error: payload,
         loading: false,
       };
-    }
+    case SET_SHOWBIRTHDAY:
+      return {
+        ...state,
+        monthSortedList: [
+          ...state.monthSortedList,
+          payload.user.showBirthday
+            ? state.monthSortedList[payload.index].users.push(payload.user)
+            : (state.monthSortedList[
+                payload.index
+              ].users = state.monthSortedList[payload.index].users.filter(
+                (user) => user.id !== payload.user.id
+              )),
+        ],
+        loading: false,
+      };
+    case CREATE_SHOWBIRTHDAY_LIST:
+      return {
+        ...state,
+        showBirthdayList: payload,
+        loading: false,
+      };
+
     default:
       return state;
   }

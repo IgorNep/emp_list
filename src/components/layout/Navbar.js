@@ -17,6 +17,9 @@ const Navbar = ({ logo, icon, clearEmployees }) => {
         <li>
           <Link to="/employees">Employees</Link>
         </li>
+        <li>
+          <Link to="/about">About</Link>
+        </li>
       </ul>
     </nav>
   );

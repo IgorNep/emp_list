@@ -1,6 +1,6 @@
 import React from 'react';
 
-const NotFound = () => (
+const About = () => (
   <div
     style={{
       display: 'flex',
@@ -11,10 +11,11 @@ const NotFound = () => (
     }}
   >
     <h1>
-      <span className="text-primary">404</span> Not Found
+      <span className="text-primary">About</span>
     </h1>
-    <p>Sorry this page does not exist</p>
+    <p>Simple application for display birthday's of employees</p>
+    <p>Version 1.0.0</p>
   </div>
 );
 
-export default NotFound;
+export default About;

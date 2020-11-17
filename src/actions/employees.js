@@ -1,11 +1,11 @@
 import {
   GET_EMPLOYEES,
-  EMPLOYEES_ERROR,
+  CREATE_ABC_SORTED_LIST,
+  CREATE_MONTH_SORTED_LIST,
   CLEAR_EMPLOYEES,
-  CREATE_SORTEDLIST,
-  CREATE_SORTED_BY_MONTH,
+  EMPLOYEES_ERROR,
   SET_SHOWBIRTHDAY,
-  SET_INIT_SHOWBIRTHDAY,
+  CREATE_SHOWBIRTHDAY_LIST,
 } from './types';
 import axios from 'axios';
 
@@ -37,54 +37,30 @@ export const getEmployees = () => async (dispatch) => {
   }
 };
 
-export const clearEmployees = () => async (dispatch) => {
-  try {
-    dispatch({ type: CLEAR_EMPLOYEES });
-  } catch (error) {
-    dispatch({
-      type: EMPLOYEES_ERROR,
-      payload: error.message,
-    });
-  }
-};
-
-export const createSortedLists = (employees) => (dispatch) => {
+export const sortEmployeesByAbc = (employees) => (dispatch) => {
   const abc = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
   try {
-    const empList = [];
+    const employeeList = [];
     abc.split('').forEach((letter) => {
-      const newBox = { title: letter, abcEmployees: [] };
-      empList.push(newBox);
+      const newBox = { title: letter, employeesAbc: [] };
+      employeeList.push(newBox);
 
-      employees.forEach((emp) => {
-        if (emp.lastName.charAt(0) === newBox.title) {
-          newBox.abcEmployees.push(emp);
+      employees.forEach((employer) => {
+        if (employer.lastName.charAt(0) === newBox.title) {
+          newBox.employeesAbc.push(employer);
         }
       });
     });
 
-    dispatch({ type: CREATE_SORTEDLIST, payload: empList });
+    dispatch({ type: CREATE_ABC_SORTED_LIST, payload: employeeList });
   } catch (error) {
     console.error(error.message);
   }
 };
 
-export const createUsersSortedByMonth = (employees) => (dispatch) => {
-  const months = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
-  ];
+export const sortEmployeesByMonth = (employees) => (dispatch) => {
+  const months = getMonthsNames();
 
   try {
     const usersSortedByMonth = [];
@@ -100,9 +76,20 @@ export const createUsersSortedByMonth = (employees) => (dispatch) => {
         usersSortedByMonth[index].users.push(user);
       }
     });
-    dispatch({ type: CREATE_SORTED_BY_MONTH, payload: usersSortedByMonth });
+    dispatch({ type: CREATE_MONTH_SORTED_LIST, payload: usersSortedByMonth });
   } catch (error) {
     console.error(error.message);
+  }
+};
+
+export const clearEmployees = () => async (dispatch) => {
+  try {
+    dispatch({ type: CLEAR_EMPLOYEES });
+  } catch (error) {
+    dispatch({
+      type: EMPLOYEES_ERROR,
+      payload: error.message,
+    });
   }
 };
 
@@ -146,3 +133,29 @@ const isShowBirthdayChecked = (employer) => {
   }
   if (checkedUser) return true;
 };
+
+export const getShowBirthdayInfo = () => (dispatch) => {
+  try {
+    const res = JSON.parse(localStorage.getItem('showBirthdayInfo'));
+    dispatch({ type: CREATE_SHOWBIRTHDAY_LIST, payload: res });
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+
+function getMonthsNames() {
+  return [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
+}
