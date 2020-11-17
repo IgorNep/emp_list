@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createUsersSortedByMonth } from '../../actions/employees';
@@ -10,8 +10,6 @@ const EmpBirthday = ({
   usersSortedByMonth,
   createUsersSortedByMonth,
 }) => {
-  const [showUserInfo, setShowUsersInfo] = useState(false);
-
   useEffect(() => {
     createUsersSortedByMonth(employees);
   }, [createUsersSortedByMonth, employees]);
@@ -22,16 +20,16 @@ const EmpBirthday = ({
       <div className="birthday-block">
         {usersSortedByMonth ? (
           usersSortedByMonth.map((item) => (
-            <Fragment>
+            <div key={item.id}>
               {item.users && item.users.length > 0 && (
-                <div key={item.id} className="emp-birthday-item">
+                <div className="emp-birthday-item">
                   <h4>{item.title} </h4>
                   <div className="emp-birthday-list">
                     <EmpBirthdayItem users={item.users} />
                   </div>
                 </div>
               )}
-            </Fragment>
+            </div>
           ))
         ) : (
           <Spinner />

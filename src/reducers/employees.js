@@ -46,6 +46,7 @@ export default function (state = initialState, action) {
         ],
         loading: false,
       };
+
     case CREATE_SORTED_BY_MONTH:
       return {
         ...state,

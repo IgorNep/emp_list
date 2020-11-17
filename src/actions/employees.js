@@ -5,6 +5,7 @@ import {
   CREATE_SORTEDLIST,
   CREATE_SORTED_BY_MONTH,
   SET_SHOWBIRTHDAY,
+  SET_INIT_SHOWBIRTHDAY,
 } from './types';
 import axios from 'axios';
 
@@ -90,15 +91,15 @@ export const createUsersSortedByMonth = (employees) => (dispatch) => {
     months.forEach((month, index) => {
       const newBirthdayMonth = { id: index, title: month, users: [] };
       usersSortedByMonth.push(newBirthdayMonth);
-
-      // employees.forEach((emp) => {
-      //   const month = new Date(emp.dob);
-      //   if (month.getMonth() === index) {
-      //     newBirthdayMonth.users.push(emp);
-      //   }
-      // });
     });
 
+    employees.forEach((user) => {
+      if (user.showBirthday) {
+        const month = new Date(user.dob);
+        const index = month.getMonth();
+        usersSortedByMonth[index].users.push(user);
+      }
+    });
     dispatch({ type: CREATE_SORTED_BY_MONTH, payload: usersSortedByMonth });
   } catch (error) {
     console.error(error.message);
@@ -111,13 +112,13 @@ export const changeUsersShowBirthday = (user) => (dispatch) => {
 
   try {
     dispatch({ type: SET_SHOWBIRTHDAY, payload: { user, index } });
-    updateLocalStorage(user, index);
+    updateLocalStorage(user);
   } catch (error) {
     console.error(error.message);
   }
 };
 
-const updateLocalStorage = (user, index) => {
+const updateLocalStorage = (user) => {
   let employees = JSON.parse(localStorage.getItem('employees'));
   let showBirthdayInfo;
   if (localStorage.getItem('showBirthdayInfo') === null) {

@@ -4,7 +4,7 @@ const EmpBirthdayItem = ({ users }) => {
   return (
     <Fragment>
       {users.map((user) => (
-        <p>{user.lastName}</p>
+        <p key={user.id}>{user.lastName}</p>
       ))}
     </Fragment>
   );

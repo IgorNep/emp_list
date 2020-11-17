@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import EmpItem from './EmpItem';
 import { connect } from 'react-redux';
 import { createSortedLists } from '../../actions/employees';
@@ -34,4 +34,6 @@ const mapStateToProps = (state) => ({
   sortedLists: state.list.sortedLists,
 });
 
-export default connect(mapStateToProps, { createSortedLists })(EmpData);
+export default connect(mapStateToProps, {
+  createSortedLists,
+})(EmpData);

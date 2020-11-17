@@ -33,4 +33,6 @@ Employees.propTypes = {
   list: PropTypes.object.isRequired,
 };
 
-export default connect(mapStateToProps, { getEmployees })(Employees);
+export default connect(mapStateToProps, {
+  getEmployees,
+})(Employees);
