@@ -15,7 +15,7 @@ const EmpData = ({ employees, sortEmployeesByAbc, abcSortedList }) => {
         {abcSortedList &&
           abcSortedList.map((item) => (
             <div key={item.title} className="emp-item">
-              <h3>{item.title}</h3>
+              <h3 className="abc-title">{item.title}</h3>
               <div>
                 {item.employeesAbc.length === 0
                   ? '----'

@@ -158,7 +158,7 @@ li:hover {
 .employees {
   display: grid;
   grid-template-columns: 2fr 1fr;
-  gap: 1rem;
+  gap: 2rem;
 }
 
 .emp-abc {
@@ -226,6 +226,13 @@ li:hover {
   }
 }
 @media (max-width: 600px) {
+  .nav {
+    flex-direction: column;
+  }
+  .logo {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
   .emp-abc {
     grid-template-columns: 1fr;
   }

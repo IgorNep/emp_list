@@ -20,6 +20,15 @@ const Navbar = ({ logo, icon, clearEmployees }) => {
         <li>
           <Link to="/about">About</Link>
         </li>
+        <li>
+          <a
+            href="https://github.com/IgorNep/emp_list"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Github
+          </a>
+        </li>
       </ul>
     </nav>
   );

@@ -22,7 +22,9 @@ const EmpBirthday = ({
       <h2>Employees birthday</h2>
       <div className="line"></div>
       <div className="birthday-block">
-        {monthSortedList && showBirthdayList.length > 0 ? (
+        {monthSortedList &&
+        showBirthdayList !== null &&
+        showBirthdayList.length > 0 ? (
           monthSortedList.map((month) => (
             <MonthItem key={month.id} month={month} />
           ))
