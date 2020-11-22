@@ -1,13 +1,16 @@
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import rootReducer from './reducers';
+import { employeesReducer } from './reducers/employeesReducer';
 
+const reducer = combineReducers({
+  lists: employeesReducer,
+});
 const initialState = {};
 const middleware = [thunk];
 
 const store = createStore(
-  rootReducer,
+  reducer,
   initialState,
   composeWithDevTools(applyMiddleware(...middleware))
 );

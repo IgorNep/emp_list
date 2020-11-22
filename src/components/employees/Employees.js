@@ -1,38 +1,31 @@
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { getEmployees } from '../../actions/employees';
 import Spinner from '../layout/Spinner';
-import EmpData from './EmpData';
-import EmpBirthday from './EmpBirthday';
+import EmployeesAbcList from './EmployeesAbcList';
+import EmployeesBirthdayList from './EmployeesBirthdayList';
+import { getEmployees } from '../../actions/employees';
+import { useDispatch, useSelector } from 'react-redux';
 
-const Employees = ({ getEmployees, lists: { loading, employees } }) => {
+const Employees = () => {
+  const dispatch = useDispatch();
+
+  const lists = useSelector((state) => state.lists);
+
+  const { loading, employees } = lists;
   useEffect(() => {
-    getEmployees();
-  }, [getEmployees]);
+    dispatch(getEmployees());
+  }, [dispatch]);
   return (
     <div className="my-2">
       {loading ? (
         <Spinner />
       ) : (
         <div className="employees">
-          <EmpData employees={employees} />
-          <EmpBirthday employees={employees} />
+          <EmployeesAbcList employees={employees} />
+          <EmployeesBirthdayList employees={employees} />
         </div>
       )}
     </div>
   );
 };
 
-const mapStateToProps = (state) => ({
-  lists: state.lists,
-});
-
-Employees.propTypes = {
-  getEmployees: PropTypes.func.isRequired,
-  lists: PropTypes.object.isRequired,
-};
-
-export default connect(mapStateToProps, {
-  getEmployees,
-})(Employees);
+export default Employees;

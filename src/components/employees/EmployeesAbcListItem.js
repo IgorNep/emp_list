@@ -1,16 +1,13 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
 import {
   changeUsersShowBirthday,
   getShowBirthdayInfo,
 } from '../../actions/employees';
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
 
-const AbcListItem = ({
-  user,
-  changeUsersShowBirthday,
-  getShowBirthdayInfo,
-}) => {
+const EmployeesAbcListItem = ({ user }) => {
+  const dispatch = useDispatch();
   const [showBirthday, setShowBirthday] = useState(user.showBirthday);
 
   return (
@@ -25,19 +22,17 @@ const AbcListItem = ({
         checked={showBirthday}
         onChange={() => {
           user.showBirthday = !showBirthday;
-          changeUsersShowBirthday(user);
+          dispatch(changeUsersShowBirthday(user));
           setShowBirthday(!showBirthday);
-          getShowBirthdayInfo();
+          dispatch(getShowBirthdayInfo());
         }}
       />
     </div>
   );
 };
-AbcListItem.propTypes = {
+EmployeesAbcListItem.propTypes = {
   changeUsersShowBirthday: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
 };
 
-export default connect(null, { changeUsersShowBirthday, getShowBirthdayInfo })(
-  AbcListItem
-);
+export default EmployeesAbcListItem;

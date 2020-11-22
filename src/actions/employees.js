@@ -159,3 +159,17 @@ function getMonthsNames() {
     'December',
   ];
 }
+
+function showBirthdayDate(dob) {
+  const months = getMonthsNames();
+  const date = new Date(dob);
+  const usersDate =
+    date.getDay() +
+    ' ' +
+    months[date.getMonth()] +
+    ', ' +
+    date.getFullYear() +
+    ' year';
+  return usersDate;
+}
+export default showBirthdayDate;

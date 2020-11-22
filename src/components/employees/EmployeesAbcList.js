@@ -1,12 +1,17 @@
 import React, { useEffect } from 'react';
-import AbcListItem from './AbcListItem';
-import { connect } from 'react-redux';
+import EmployeesAbcListItem from './EmployeesAbcListItem';
+import PropTypes from 'prop-types';
 import { sortEmployeesByAbc } from '../../actions/employees';
+import { useDispatch, useSelector } from 'react-redux';
 
-const EmpData = ({ employees, sortEmployeesByAbc, abcSortedList }) => {
+const EmployeesAbcList = ({ employees }) => {
+  const dispatch = useDispatch();
+  const lists = useSelector((state) => state.lists);
+
+  const { abcSortedList } = lists;
   useEffect(() => {
-    sortEmployeesByAbc(employees);
-  }, [sortEmployeesByAbc, employees]);
+    dispatch(sortEmployeesByAbc(employees));
+  }, [dispatch, employees]);
   return (
     <div className="emp-data">
       <h2>Employees</h2>
@@ -20,7 +25,7 @@ const EmpData = ({ employees, sortEmployeesByAbc, abcSortedList }) => {
                 {item.employeesAbc.length === 0
                   ? '----'
                   : item.employeesAbc.map((user) => (
-                      <AbcListItem key={user.id} user={user} />
+                      <EmployeesAbcListItem key={user.id} user={user} />
                     ))}
               </div>
             </div>
@@ -29,11 +34,7 @@ const EmpData = ({ employees, sortEmployeesByAbc, abcSortedList }) => {
     </div>
   );
 };
-
-const mapStateToProps = (state) => ({
-  abcSortedList: state.lists.abcSortedList,
-});
-
-export default connect(mapStateToProps, {
-  sortEmployeesByAbc,
-})(EmpData);
+EmployeesAbcList.propTypes = {
+  employees: PropTypes.array.isRequired,
+};
+export default EmployeesAbcList;
