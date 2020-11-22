@@ -19,7 +19,7 @@ const initialState = {
 
 //eslint-disable-next-line
 export const employeesReducer = (state = initialState, action) => {
-  const { payload, type } = action;
+  const { type, payload } = action;
   switch (type) {
     case GET_EMPLOYEES:
       return {

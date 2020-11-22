@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import EmployeesBirthdayItem from './EmployeesBirthdayItem';
+import EmployeesBirthdayListItem from './EmployeesBirthdayListItem';
 
 const EmployeesBirthdayMonth = ({ month }) => {
   return (
@@ -8,7 +8,7 @@ const EmployeesBirthdayMonth = ({ month }) => {
         <div className="emp-birthday-item">
           <h4>{month.title} </h4>
           <div className="emp-birthday-list">
-            <EmployeesBirthdayItem key={month.id} users={month.users} />
+            <EmployeesBirthdayListItem key={month.id} users={month.users} />
           </div>
         </div>
       )}

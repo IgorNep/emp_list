@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import showBirthdayDate from '../../actions/employees';
 
-const EmployeesBirthdayItem = ({ users }) => {
+const EmployeesBirthdayListItem = ({ users }) => {
   return (
     <Fragment>
       {users.map((user) => (
@@ -13,4 +13,4 @@ const EmployeesBirthdayItem = ({ users }) => {
   );
 };
 
-export default EmployeesBirthdayItem;
+export default EmployeesBirthdayListItem;

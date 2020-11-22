@@ -11,7 +11,7 @@ const EmployeesAbcListItem = ({ user }) => {
   const [showBirthday, setShowBirthday] = useState(user.showBirthday);
 
   return (
-    <div className="bigbox">
+    <div className="employer">
       <label htmlFor={user.id}>
         {user.lastName} {user.firstName}{' '}
       </label>
@@ -31,7 +31,6 @@ const EmployeesAbcListItem = ({ user }) => {
   );
 };
 EmployeesAbcListItem.propTypes = {
-  changeUsersShowBirthday: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
 };
 

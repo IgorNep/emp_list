@@ -192,28 +192,28 @@ li:hover {
   padding: 0.5rem;
   border-radius: 7px;
 }
-.bigbox {
+.employer {
   margin-bottom: 0.5rem;
   align-items: center;
   display: flex;
 }
-.bigbox label {
+.employer label {
   cursor: pointer;
   margin-right: 0.5rem;
 }
-.bigbox label:hover {
+.employer label:hover {
   opacity: 0.9;
 }
-.bigbox input {
+.employer input {
   width: 15px;
   height: 15px;
   cursor: pointer;
 }
-.bigbox input:checked {
+.employer input:checked {
   width: 20px;
   height: 20px;
 }
-.bigbox input:checked {
+.employer input:checked {
   background-color: var(--primary-color);
 }
 
