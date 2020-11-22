@@ -65,5 +65,5 @@ it('Length of array users of February object should be decremented', () => {
 
   let newState = employeesReducer(initialState, action);
 
-  expect(newState.monthSortedList[0].users.length).toBe(1);
+  expect(newState.monthSortedList[1].users.length).toBe(0);
 });
